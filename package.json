@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
+    "dev": "node ./src/server.js"
   },
   "keywords": [
     "nodejs",
@@ -14,6 +14,8 @@
   "author": "nguyen duc khang",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "16.0.3",
+    "ejs": "^4.0.1",
     "exact": "^1.0.1",
     "express": "4.18.2"
   }
