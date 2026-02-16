@@ -1,3 +1,49 @@
-.khang {
-    width: 1000px;
+#map {
+    height: 100vh;
+    width: 100%;
+}
+
+#controlBox {
+    position: absolute;
+    top: 15px;
+    left: 100px;
+    z-index: 1000;
+
+    background: white;
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#serviceType {
+    padding: 6px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#btnFind,
+#btnFindAll {
+    padding: 6px 10px;
+    margin-left: 6px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+#btnLocate {
+    padding: 6px 10px;
+    margin-left: 6px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+#btnFind:hover {
+    background-color: #0056b3;
 }

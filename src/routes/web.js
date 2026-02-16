@@ -1,25 +1,16 @@
 const express = require('express');
+const { getHomepage, getABC, getKhang } = require('../controllers/homeController');
 const router = express.Router();
 
-
+//router.Method('/route',handler)
 
 //khai bao route
-router.get('/', (req, res) => {
-    res.send('Hello Worldddddddddddddddddddddddddd!')
-})
-
-router.get('/abc', (req, res) => {
-    res.send('check abc')
-})
-
-
+router.get('/', getHomepage);
+router.get('/abc', getABC)
 //khai bao route
 //app.use('/test', webRoutes);
 
-router.get('/khang', (req, res) => {
-    //res.send('Hello World! with /khang')
-    res.render('sample.ejs')
-})
+router.get('/khang', getKhang)
 
 
 module.exports = router;

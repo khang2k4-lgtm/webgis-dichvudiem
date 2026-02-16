@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>WebGIS GeoServer</title>
+
+    <link rel="stylesheet" href="/css/leaflet.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+
+
+
+</head>
+
+<body>
+    <div id="map"></div>
+
+
+    <div>
+        <div id="controlBox">
+
+            <select id="serviceType">
+                <option value="school">Trường học</option>
+                <option value="hospital">Bệnh viện</option>
+                <option value="atm">ATM</option>
+            </select>
+
+            <select id="searchRadius">
+                <option value="1000">1 km</option>
+                <option value="3000">3 km</option>
+                <option value="5000" selected>5 km</option>
+                <option value="10000">10 km</option>
+            </select>
+
+            <button id="btnFind">Tìm điểm gần nhất</button>
+            <button id="btnFindAll">Tìm tất cả điểm gần nhất</button>
+            <button id="btnLocate">Vị trí hiện tại </button>
+            <button id="btnRoute" disabled>🚗 Chỉ đường</button>
+
+        </div>
+        <div
+            style="position:absolute;top:80px;left:100px;z-index:1000;background:white;padding:12px;border-radius:8px;width:250px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+
+            <input type="text" id="chiTiet" placeholder="Số nhà, thôn, đường"
+                style="width:100%;padding:6px;margin-bottom:8px;">
+
+            <input type="text" id="xa" placeholder="Xã / Phường" style="width:100%;padding:6px;margin-bottom:8px;">
+
+            <input type="text" id="huyen" placeholder="Huyện / Quận" style="width:100%;padding:6px;margin-bottom:8px;">
+
+            <input type="text" id="tinh" placeholder="Tỉnh / Thành phố"
+                style="width:100%;padding:6px;margin-bottom:10px;">
+
+            <button id="btnSearchAddress"
+                style="width:100%;padding:8px;background:#2e7d32;color:white;border:none;border-radius:5px;cursor:pointer;">
+                Tìm địa chỉ
+            </button>
+
+        </div>
+
+
+        <script src="/js/leaflet.js"></script>
+        <script src="/js/xuly.js"></script>
+
+
+</body>
+
+</html>
