@@ -623,14 +623,124 @@ map.on("locationfound", function (e) {
 
 
 
+//them 
+// ====== LAYER CHỨA MARKER ======
+let markerLayer = L.layerGroup().addTo(map);
+
+// ====== BIẾN CHẾ ĐỘ THÊM ======
+let isAddMode = false;
+
+// ====== NÚT BẬT CHẾ ĐỘ THÊM ======
+document.getElementById("btnAdd").addEventListener("click", function () {
+
+    isAddMode = !isAddMode;
+
+    if (isAddMode) {
+        alert("Đã bật chế độ thêm. Click vào bản đồ để thêm.");
+        this.style.backgroundColor = "green";
+    } else {
+        this.style.backgroundColor = "";
+    }
+});
 
 
+// ====== CLICK MAP ĐỂ THÊM ======
+map.on("click", function (e) {
+
+    if (!isAddMode) return;
+
+    const type = document.getElementById("serviceType").value;
+    const name = prompt("Nhập tên:");
+
+    if (!name) return;
+
+    fetch(`/api/add/${type}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: name,
+            lat: e.latlng.lat,
+            lng: e.latlng.lng
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+
+            if (!data.success) {
+                alert("Lỗi thêm dữ liệu!");
+                return;
+            }
+
+            alert("Thêm thành công!");
+
+            // reload lại toàn bộ marker (an toàn nhất)
+            loadAll();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Lỗi server!");
+        });
+
+});
 
 
+// ====== LOAD TẤT CẢ ======
+function loadAll() {
+
+    markerLayer.clearLayers();
+
+    // 🔥 CHỈNH Ở ĐÂY nếu đổi tên bảng
+    const types = ["school1", "hospital", "atm"];
+
+    types.forEach(type => {
+
+        fetch(`/api/list/${type}`)
+            .then(res => res.json())
+            .then(data => {
+
+                // tránh lỗi data.forEach is not a function
+                if (!Array.isArray(data)) return;
+
+                data.forEach(item => {
+
+                    if (!item.lat || !item.lng) return;
+
+                    const marker = L.marker([item.lat, item.lng]);
+
+                    marker.bindPopup(`
+                        <b>${item.name}</b><br>
+                        <button onclick="deletePoint('${type}', ${item.id})">❌ Xóa</button>
+                    `);
+
+                    markerLayer.addLayer(marker);
+
+                });
+
+            })
+            .catch(err => console.error(err));
+
+    });
+
+}
 
 
+// ====== XÓA ======
+function deletePoint(type, id) {
+
+    if (!confirm("Bạn chắc chắn muốn xóa?")) return;
+
+    fetch(`/api/delete/${type}/${id}`, {
+        method: "DELETE"
+    })
+        .then(res => res.json())
+        .then(() => {
+            alert("Đã xóa!");
+            loadAll();
+        })
+        .catch(err => console.error(err));
+}
 
 
-
-
+// ====== GỌI KHI MỞ TRANG ======
+loadAll();
 

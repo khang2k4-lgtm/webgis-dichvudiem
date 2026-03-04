@@ -1,15 +1,14 @@
 const express = require('express');
-const { getHomepage, getABC, getKhang } = require('../controllers/homeController');
+const { getHomepage, getABC, getKhang, index } = require('../controllers/homeController');
 const router = express.Router();
 
 //router.Method('/route',handler)
 
 //khai bao route
-router.get('/', getHomepage);
-router.get('/abc', getABC)
-//khai bao route
+//router.get('/', getHomepage);
 //app.use('/test', webRoutes);
 
+router.get('/abc', getABC)
 router.get('/khang', getKhang)
 
 

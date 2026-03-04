@@ -1,18 +1,22 @@
-const connection = require('../config/database')
-const getHomepage = (req, res) => {
-    let users = [];
-    //query
-    connection.query(
-        'SELECT * FROM users u',
-        function (err, results, fields) {
-            users = results;
-            console.log(">>>>results= ", results);
-            //console.log("fields= ", fields);
-            console.log(">>>>>check users ", users);
-            res.send(JSON.stringify(users))
-        }
-    );
+// const connection = require('../config/database')
+// const getHomepage = (req, res) => {
+//     let users = [];
+//     //query
+//     connection.query(
+//         'SELECT * FROM users u',
+//         function (err, results, fields) {
+//             users = results;
+//             console.log(">>>>results= ", results);
+//             //console.log("fields= ", fields);
+//             console.log(">>>>>check users ", users);
+//             res.send(JSON.stringify(users))
+//         }
+//     );
 
+// };
+
+const index = (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
 };
 
 const getABC = (req, res) => {
@@ -20,12 +24,13 @@ const getABC = (req, res) => {
 };
 
 const getKhang = (req, res) => {
-    //res.send('Hello with khang')
-    res.render('sample.ejs')
+    res.send('Hello with khang')
+    //res.render('sample.ejs')
 };
 
 
 
 module.exports = {
-    getHomepage, getABC, getKhang
+    //getHomepage, 
+    getABC, getKhang, index
 };

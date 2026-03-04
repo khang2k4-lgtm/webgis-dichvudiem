@@ -1,45 +1,35 @@
+
 require("dotenv").config();
-const express = require('express');
-//import express from 'express'
-// console.log(">>> check env: ", process.env);
+const express = require("express");
 
-const configViewEngine = require('./config/viewEngine');
-const webRoutes = require('./routes/web');
-const connection = require('./config/database')
+const configViewEngine = require("./config/viewEngine");
+const webRoutes = require("./routes/web");
+
 const app = express();
-const port = process.env.PORT || 8888;//port
-const hostname = process.env.HOST_NAME;
 
-//config template engine  
-configViewEngine(app);  //quan trọng
-
-//khai bao route
-// app.use('/', webRoutes);
-// app.use('/test', webRoutes);
+const port = process.env.PORT || 8888;
+const hostname = process.env.HOST_NAME || "localhost";
 
 
-
-const path = require("path");
-
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public/index.html"));
-});
+// MIDDLEWARE
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
+// VIEW ENGINE
 
+configViewEngine(app);
 
+// ==========================
+// ROUTES
+// ==========================
+app.use("/", webRoutes);
+app.use("/api", require("./routes/api"));   // 🔥 QUAN TRỌNG
+
+// ==========================
+// START SERVER
+// ==========================
 app.listen(port, hostname, () => {
-    console.log(`Example app listening on port ${port}`)
-})
-
-
-
-
-
-
-
-
-
+    console.log(`Server running at http://${hostname}:${port}`);
+});
 
